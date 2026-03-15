@@ -22,7 +22,8 @@
   --font-mono:    'JetBrains Mono', monospace;
 }
 
-html { font-size: 62.5%; overflow-x: hidden; scroll-behavior: smooth; }
+/* Desktop: bumped from 62.5% → 68% for slightly larger base font */
+html { font-size: 68%; overflow-x: hidden; scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: var(--font-body); }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -573,6 +574,26 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
   font-size: 3rem; color: var(--green); display: none; cursor: pointer;
 }
 
+/* Mobile nav overlay */
+.pf-header .navbar.open {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(8,8,8,0.97);
+  backdrop-filter: blur(20px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem;
+}
+.pf-header .navbar.open a {
+  font-size: 2.4rem;
+  margin-left: 0;
+  letter-spacing: 0.15em;
+}
+
 /* Portfolio sections */
 pf-section, section.pf { min-height: 100vh; padding: 12rem 10%; }
 
@@ -597,7 +618,7 @@ pf-section, section.pf { min-height: 100vh; padding: 12rem 10%; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-.pf-home-content p { font-size: 1.5rem; line-height: 1.7; max-width: 50rem; }
+.pf-home-content p { font-size: 1.6rem; line-height: 1.7; max-width: 50rem; }
 .pf-home-img img {
   width: 28vw; max-width: 38rem;
   border-radius: 50%;
@@ -858,31 +879,138 @@ pf-section, section.pf { min-height: 100vh; padding: 12rem 10%; }
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE — TABLET  (≤ 1024px)
    ============================================ */
-@media (max-width: 900px) {
-  .ai-main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
-  .avatar-panel { min-height: 30rem; border-right: none; border-bottom: 1px solid rgba(0,255,81,0.08); padding: 2rem; }
-  #avatar-canvas { height: 22rem; }
-  .holo-rings { display: none; }
-  .pf-home { flex-direction: column-reverse; gap: 4rem; }
-  .pf-home-content { align-items: center; text-align: center; }
-  .pf-home-img img { width: 55vw; }
-  .pf-social { justify-content: center; }
-  .pf-btn-group { justify-content: center; }
-  .pf-about { flex-direction: column; gap: 4rem; }
-  .pf-about-img img { width: 55vw; }
-  #pf-menu-icon { display: block; }
-  .pf-header .navbar { display: none; }
-  .pf-input-row { grid-template-columns: 1fr; }
-}
-@media (max-width: 600px) {
-  html { font-size: 55%; }
-  .ai-topbar { padding: 1.5rem 2rem; }
-  .pf-home-content h1 { font-size: 4.5rem; }
+@media (max-width: 1024px) {
+  html { font-size: 65%; }
+
+  .pf-home { gap: 6rem; padding: 10rem 7%; }
+  .pf-home-content h1 { font-size: 5.8rem; }
+  .pf-about { gap: 6rem; padding: 8rem 7%; }
+  .pf-section { padding: 8rem 7%; }
+  .pf-header { padding: 2rem 7%; }
+
+  .ai-topbar { padding: 1.8rem 3rem; }
+  .ai-bottombar { padding: 1.2rem 3rem; }
 }
 
-/* =============================================
+/* ============================================
+   RESPONSIVE — MOBILE  (≤ 900px)
+   ============================================ */
+@media (max-width: 900px) {
+  html { font-size: 60%; }
+
+  /* AI Screen */
+  .ai-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: calc(100vh - 6rem - 5rem);
+    overflow: visible;
+  }
+  .avatar-panel {
+    min-height: 28rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,255,81,0.08);
+    padding: 2rem;
+  }
+  #avatar-canvas { height: 20rem; max-width: 28rem; }
+  .holo-rings { display: none; }
+  .data-strips { display: none; }
+  .chat-panel { min-height: 60vh; }
+  #ai-messages { padding: 2rem; }
+  #ai-suggestions { padding: 0 2rem 1.2rem; }
+  .ai-input-area { padding: 1.5rem 2rem; }
+  .ai-topbar { padding: 1.5rem 2rem; gap: 1rem; }
+  .ai-topbar .status-pill { display: none; } /* hide on small screens to save space */
+  .ai-bottombar { padding: 1rem 2rem; font-size: 0.9rem; }
+
+  /* Portfolio */
+  .pf-header { padding: 1.8rem 5%; }
+  .pf-header .navbar { display: none; }
+  #pf-menu-icon { display: block; }
+  .ai-mode-btn { font-size: 1rem; padding: 0.8rem 1.4rem; }
+
+  .pf-home {
+    flex-direction: column-reverse;
+    gap: 4rem;
+    padding: 10rem 6% 6rem;
+    text-align: center;
+  }
+  .pf-home-content {
+    align-items: center;
+    text-align: center;
+  }
+  .pf-home-content h1 { font-size: 5rem; }
+  .pf-home-content h3 { font-size: 1.6rem; }
+  .pf-home-content p { font-size: 1.5rem; max-width: 100%; }
+  .pf-home-img img { width: 55vw; max-width: 26rem; }
+  .pf-social { justify-content: center; }
+  .pf-btn-group { justify-content: center; flex-wrap: wrap; }
+
+  .pf-about {
+    flex-direction: column;
+    gap: 4rem;
+    padding: 8rem 6%;
+  }
+  .pf-about-img img { width: 60vw; max-width: 28rem; }
+  .pf-about-content h2 { font-size: 4rem; }
+
+  .pf-section { padding: 8rem 6%; }
+  .pf-section-title { font-size: 3.2rem; margin-bottom: 4rem; }
+
+  .pf-skills-grid { grid-template-columns: 1fr; }
+  .pf-projects-grid { grid-template-columns: 1fr; }
+  .pf-achievement-grid { grid-template-columns: 1fr; }
+  .pf-services-grid { grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); }
+
+  .pf-timeline { padding-left: 2rem; }
+  .pf-timeline-item { padding: 2rem 2rem 2rem 2rem; }
+  .pf-timeline-item::before { left: -2.9rem; }
+  .pf-timeline-item:hover { transform: translateX(3px); }
+
+  .pf-input-row { grid-template-columns: 1fr; }
+  .pf-contact-form .btn { align-self: stretch; text-align: center; }
+
+  .pf-footer-links { gap: 2rem; flex-wrap: wrap; }
+}
+
+/* ============================================
+   RESPONSIVE — SMALL MOBILE  (≤ 600px)
+   ============================================ */
+@media (max-width: 600px) {
+  html { font-size: 54%; }
+
+  .ai-topbar { padding: 1.2rem 1.6rem; }
+  .ai-topbar .logo { font-size: 1.6rem; letter-spacing: 0.12em; }
+  .portfolio-mode-btn { font-size: 1rem; padding: 0.6rem 1rem; letter-spacing: 0.04em; }
+  #avatar-canvas { height: 16rem; }
+  .avatar-nameplate h2 { font-size: 1.8rem; }
+  .ai-msg-bubble { max-width: 90%; font-size: 1.3rem; }
+  .ai-chip { font-size: 1.1rem; }
+  #ai-input { font-size: 1.3rem; }
+  #ai-send { width: 4.2rem; height: 4.2rem; font-size: 1.8rem; }
+
+  .pf-home { padding: 9rem 5% 5rem; gap: 3rem; }
+  .pf-home-content h1 { font-size: 4rem; letter-spacing: 0.03em; }
+  .pf-home-content h3 { font-size: 1.4rem; }
+  .pf-home-img img { width: 70vw; }
+
+  .pf-about-content h2 { font-size: 3.2rem; }
+  .pf-section-title { font-size: 2.8rem; }
+  .pf-header { padding: 1.5rem 4%; }
+  .pf-header .logo { font-size: 1.8rem; }
+  .pf-section { padding: 7rem 5%; }
+
+  .pf-service-card { padding: 2.5rem 2rem; }
+  .pf-service-card i { font-size: 4rem; }
+
+  .pf-footer { padding: 4rem 5%; }
+  .pf-footer-links { gap: 1.5rem; }
+  .btn { padding: 1rem 2.4rem; font-size: 1.3rem; }
+}
+
+/* ============================================
    PROJECT LINK BADGE
    ============================================= */
 .pf-project-link-badge {
