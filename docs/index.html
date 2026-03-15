@@ -1,420 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paul Mukuna Kabeya - Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mukuna Kabeya — AI Mode</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
 </head>
-
 <body>
-    <header class="header">
-        <a href="#home" class="logo">Mukuna <span>Kabeya</span></a>
-        <i class="bx bx-menu" id="menu-icon"></i>
 
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#education">Education</a>
-            <a href="#experience">Experience</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+<canvas id="bg-canvas"></canvas>
 
-    <section class="home" id="home">
-        <div class="home-content">
-            <h1>Hi, I'm <span>Mukuna</span></h1>
-            <h3>Software <span>Engineer</span></h3>
-            <p>Results-driven software engineer with a strong foundation in full-stack development. Passionate about building scalable, secure software solutions to address real-world challenges.</p>
+<div class="ai-screen">
 
-            <div class="social-icons">
-                <a href="https://github.com/kerthnorth" target="_blank"><i class="bx bxl-github"></i></a>
-                <a href="https://www.linkedin.com/in/paul-kabeya-9a53b12b8" target="_blank"><i class="bx bxl-linkedin-square"></i></a>
-                <a href="#"><i class="bx bxl-instagram-alt"></i></a>
-                <a href="#"><i class="bx bxl-twitter"></i></a>
-            </div>
+  <!-- TOP BAR -->
+  <header class="ai-topbar">
+    <div class="logo">MK<span>.</span>AI</div>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      NEURAL LINK ACTIVE
+    </div>
+    <button class="portfolio-mode-btn" onclick="window.location.href='portfolio.html'">
+      ← Portfolio View
+    </button>
+  </header>
 
-            <div class="btn-group">
-                <a href="#contact" class="btn">Hire Me</a>
-                <a href="#projects" class="btn">My Work</a>
-            </div>
+  <!-- MAIN GRID -->
+  <main class="ai-main">
+
+    <!-- LEFT: 3D AVATAR PANEL -->
+    <div class="avatar-panel">
+      <div class="corner-deco tl"></div>
+      <div class="corner-deco tr"></div>
+      <div class="corner-deco bl"></div>
+      <div class="corner-deco br"></div>
+
+      <div class="holo-rings">
+        <div class="holo-ring"></div>
+        <div class="holo-ring"></div>
+        <div class="holo-ring"></div>
+      </div>
+
+      <div class="avatar-scanline"></div>
+
+      <canvas id="avatar-canvas"></canvas>
+
+      <div class="avatar-nameplate">
+        <h2>Mukuna <span>Kabeya</span></h2>
+        <p>Software Engineer · Johannesburg, ZA</p>
+        <div class="speaking-indicator" id="speaking-indicator">
+          <div class="speak-bar"></div>
+          <div class="speak-bar"></div>
+          <div class="speak-bar"></div>
+          <div class="speak-bar"></div>
+          <div class="speak-bar"></div>
         </div>
+      </div>
 
-        <div class="home-img">
-            <img src="image.jpg" alt="Paul Mukuna Kabeya's profile picture" />
-        </div>
-    </section>
+      <div class="data-strips">
+        <div class="data-strip" id="data-strip-1">SYS: ONLINE</div>
+        <div class="data-strip" id="data-strip-2">MODEL: GEMINI-FLASH</div>
+        <div class="data-strip" id="data-strip-3">LANG: EN / ZU / SW</div>
+      </div>
+    </div>
 
-    <section class="about" id="about">
-        <div class="about-img">
-            <img src="muk.jpg" alt="Paul Mukuna Kabeya" />
-        </div>
+    <!-- RIGHT: CHAT PANEL -->
+    <div class="chat-panel">
+      <div class="chat-header-bar">
+        <h3>Direct Interface</h3>
+        <span class="msg-count" id="msg-count">0 exchanges</span>
+      </div>
 
-        <div class="about-content">
-            <h2>About <span>Me</span></h2>
-            <p>I am a software engineer with a strong foundation in full-stack development and hands-on experience building applications in Java, Python, and JavaScript. I'm skilled in designing scalable systems, working with databases, and collaborating on cross-functional projects.</p>
-            <p>I transitioned from the humanitarian field into software engineering, driven by the need to build scalable, technical solutions to address real-world challenges. My background spans mobile development with Flutter/Dart, REST API design, and modern DevOps practices.</p>
-            <p>Based in Johannesburg, South Africa. Fluent in English and IsiZulu, with moderate proficiency in Swahili.</p>
-            <a href="#projects" class="btn">View My Work</a>
-        </div>
-    </section>
+      <div id="ai-error-banner">
+        ⚠ AI connection lost. <a onclick="window.location.href='portfolio.html'">View portfolio instead →</a>
+      </div>
 
-    <section id="skills">
-        <h2 class="section-title">My <span>Skills</span></h2>
+      <div id="ai-messages"></div>
 
-        <div class="skills-container">
-            <div class="skill-category">
-                <h3>Programming Languages</h3>
-                <ul class="skill-list">
-                    <li>Python</li>
-                    <li>Java</li>
-                    <li>JavaScript</li>
-                    <li>Dart (Flutter)</li>
-                    <li>SQL</li>
-                    <li>HTML / CSS</li>
-                </ul>
-            </div>
+      <div id="ai-suggestions">
+        <button class="ai-chip" data-q="Tell me about your educational background.">📚 Education</button>
+        <button class="ai-chip" data-q="What work experience do you have?">💼 Experience</button>
+        <button class="ai-chip" data-q="What's your tech stack?">⚙ Tech Stack</button>
+        <button class="ai-chip" data-q="What projects have you built?">🛠 Projects</button>
+        <button class="ai-chip" data-q="How can I hire you or get in touch?">📬 Hire Me</button>
+      </div>
 
-            <div class="skill-category">
-                <h3>ML & Data Science</h3>
-                <ul class="skill-list">
-                    <li>Machine Learning</li>
-                    <li>NLP</li>
-                    <li>Pandas & NumPy</li>
-                    <li>Scikit-learn</li>
-                    <li>Matplotlib & Seaborn</li>
-                </ul>
-            </div>
+      <div class="ai-input-area">
+        <textarea id="ai-input" placeholder="Ask me anything..." rows="1"></textarea>
+        <button id="ai-send"><i class="bx bx-send"></i></button>
+      </div>
+    </div>
 
-            <div class="skill-category">
-                <h3>Frameworks & Databases</h3>
-                <ul class="skill-list">
-                    <li>Flask</li>
-                    <li>Node.js</li>
-                    <li>React</li>
-                    <li>Flutter</li>
-                    <li>MySQL / PostgreSQL</li>
-                    <li>MongoDB</li>
-                    <li>Firebase Firestore</li>
-                </ul>
-            </div>
+  </main>
 
-            <div class="skill-category">
-                <h3>Developer Tools</h3>
-                <ul class="skill-list">
-                    <li>Git & GitHub / GitLab</li>
-                    <li>Docker</li>
-                    <li>VS Code</li>
-                    <li>Android Studio</li>
-                    <li>IntelliJ IDEA</li>
-                </ul>
-            </div>
+  <!-- BOTTOM BAR -->
+  <footer class="ai-bottombar">
+    <span>PAUL MUKUNA KABEYA · PORTFOLIO AI</span>
+    <span>Powered by <span>Gemini Flash</span> via local proxy</span>
+    <span id="clock"></span>
+  </footer>
 
-            <div class="skill-category">
-                <h3>Mobile Development</h3>
-                <ul class="skill-list">
-                    <li>Flutter / Dart</li>
-                    <li>MVC / MVVM patterns</li>
-                    <li>Firebase Integration</li>
-                    <li>REST API Integration</li>
-                </ul>
-            </div>
+</div>
 
-            <div class="skill-category">
-                <h3>Core Competencies</h3>
-                <ul class="skill-list">
-                    <li>Problem-Solving</li>
-                    <li>Agile / Scrum</li>
-                    <li>Communication</li>
-                    <li>Research</li>
-                    <li>Collaboration</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+<script>
+// =============================================
+// BACKGROUND CANVAS — animated grid + particles
+// =============================================
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
 
-    <section id="projects">
-        <h2 class="section-title">My <span>Projects</span></h2>
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-        <div class="projects-container">
-            <div class="project-box">
-                <h3>Robot World Simulation</h3>
-                <p>Developed a Robot World simulation in Java using algorithms, object-oriented programming, and database persistence.</p>
-                <p>Designed scalable system architecture with a focus on performance and modularity.</p>
-                <div class="project-tech">
-                    <span>Java</span>
-                    <span>OOP</span>
-                    <span>Algorithms</span>
-                    <span>Database Persistence</span>
-                </div>
-            </div>
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * 2000, y: Math.random() * 2000,
+      vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+      r: Math.random()*1.5+0.5, a: Math.random()
+    });
+  }
 
-            <div class="project-box">
-                <h3>Fitness App</h3>
-                <p>Designed an interactive fitness app focused on user engagement and movement tracking as a final mobile development project.</p>
-                <p>Integrated Firebase for real-time data sync; applied MVC/MVVM architecture and REST API integration.</p>
-                <div class="project-tech">
-                    <span>Flutter</span>
-                    <span>Dart</span>
-                    <span>Firebase</span>
-                    <span>REST API</span>
-                </div>
-            </div>
+  function drawGrid() {
+    ctx.strokeStyle = 'rgba(0,255,81,0.04)';
+    ctx.lineWidth = 1;
+    const spacing = 60;
+    for (let x = 0; x < W; x += spacing) {
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+    }
+    for (let y = 0; y < H; y += spacing) {
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+  }
 
-            <div class="project-box">
-                <h3>Full-Stack Web Applications</h3>
-                <p>Designed and integrated REST APIs using Flask and Node.js with React front-ends within a workplace-style simulation environment.</p>
-                <p>Applied Agile practices including teamwork, sprint deadlines, and project presentations.</p>
-                <div class="project-tech">
-                    <span>React</span>
-                    <span>Flask</span>
-                    <span>Node.js</span>
-                    <span>REST API</span>
-                </div>
-            </div>
+  function animate() {
+    ctx.clearRect(0,0,W,H);
+    drawGrid();
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x<0) p.x=W; if (p.x>W) p.x=0;
+      if (p.y<0) p.y=H; if (p.y>H) p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(0,255,81,${0.2+p.a*0.3})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
 
-            <div class="project-box">
-                <h3>Banking System</h3>
-                <p>Developed a secure banking application with user authentication, transaction tracking, and database management.</p>
-                <p>Built a secure backend using Java and SQLite for efficient transaction history tracking.</p>
-                <div class="project-tech">
-                    <span>Java</span>
-                    <span>SQLite</span>
-                    <span>User Authentication</span>
-                </div>
-            </div>
+// =============================================
+// 3D AVATAR — Three.js holographic head
+// =============================================
+(function() {
+  const canvas = document.getElementById('avatar-canvas');
+  const W = canvas.offsetWidth || 380;
+  const H = canvas.offsetHeight || 380;
+  canvas.width = W; canvas.height = H;
 
-            <div class="project-box">
-                <h3>Clock App</h3>
-                <p>Clock application featuring alarm, stopwatch, and timer functionality with current time display and a user-friendly interface.</p>
-                <p>Built with a focus on clean UI and reliable countdowns and alarm triggers.</p>
-                <div class="project-tech">
-                    <span>Java</span>
-                </div>
-            </div>
-        </div>
-    </section>
+  // We'll render a custom canvas-based 3D wireframe avatar
+  // since Three.js isn't available as a local file
+  const ctx = canvas.getContext('2d');
+  let angle = 0;
+  let bobY = 0;
+  let bobT = 0;
+  let isSpeaking = false;
 
-    <section id="education">
-        <h2 class="section-title">My <span>Education</span></h2>
+  window.setAvatarSpeaking = function(val) { isSpeaking = val; };
 
-        <div class="education-container">
-            <div class="education-box">
-                <h3>MIT (Emerging Talent)</h3>
-                <p>Certificate in Computer and Data Science</p>
-                <p>Machine learning, Python, advanced statistics, and responsible data practices. Training focused on applying data science methodologies to real-world challenges.</p>
-                <p class="education-year">January 2025 – 2026</p>
-            </div>
+  // Build a simple icosphere-style head wireframe
+  function projectPoint(x, y, z, rotY, cx, cy) {
+    const cosA = Math.cos(rotY), sinA = Math.sin(rotY);
+    const rx = x * cosA - z * sinA;
+    const rz = x * sinA + z * cosA;
+    const fov = 280;
+    const dist = 5 + rz;
+    const px = cx + (rx / dist) * fov;
+    const py = cy + bobY + (y / dist) * fov;
+    return [px, py, dist];
+  }
 
-            <div class="education-box">
-                <h3>University of the People</h3>
-                <p>Associate Degree in Computer Science — GPA: 3.4</p>
-                <p>Coursework in programming, databases, data structures, and algorithms.</p>
-                <p class="education-year">2024 – January 2026</p>
-            </div>
+  function drawHead(rotY) {
+    ctx.clearRect(0, 0, W, H);
+    const cx = W / 2, cy = H / 2;
 
-            <div class="education-box">
-                <h3>WeThinkCode_</h3>
-                <p>Computer Systems Certificate</p>
-                <p>Rigorous hands-on training in software engineering fundamentals including data structures, algorithms, OS, networks, and database management. Completed multiple full-stack projects in Java, Python, HTML/CSS, JavaScript, and Dart.</p>
-                <p class="education-year">2023 – January 2025</p>
-            </div>
+    // Glow base
+    const grd = ctx.createRadialGradient(cx, cy+bobY, 20, cx, cy+bobY, 160);
+    grd.addColorStop(0, 'rgba(0,255,81,0.06)');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
 
-            <div class="education-box">
-                <h3>Southern New Hampshire University</h3>
-                <p>Associate Degree in Business Management</p>
-                <p>Strategic management, organizational behavior, marketing, and financial analysis. Applied business analytics and leadership theory to real-world case studies.</p>
-                <p class="education-year">2022 – 2024</p>
-            </div>
-        </div>
-    </section>
+    // Draw head sphere as wireframe latitude/longitude lines
+    const R = 100;
+    const latLines = 10, lonLines = 12;
+    ctx.lineWidth = 0.8;
 
-    <section id="experience">
-        <h2 class="section-title">My <span>Experience</span></h2>
+    // Latitude lines
+    for (let i = 1; i < latLines; i++) {
+      const phi = (i / latLines) * Math.PI;
+      const r = R * Math.sin(phi);
+      const yOff = -R * Math.cos(phi);
+      const points = [];
+      for (let j = 0; j <= lonLines; j++) {
+        const theta = (j / lonLines) * Math.PI * 2;
+        const px3 = r * Math.cos(theta);
+        const pz3 = r * Math.sin(theta);
+        const [px, py, dist] = projectPoint(px3, yOff, pz3, rotY, cx, cy);
+        points.push([px, py, dist]);
+      }
+      // Determine front/back
+      ctx.beginPath();
+      points.forEach(([px, py, dist], idx) => {
+        const alpha = Math.max(0, Math.min(0.6, (dist-3)/4));
+        if (idx === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      });
+      ctx.strokeStyle = `rgba(0,255,81,0.25)`;
+      ctx.stroke();
+    }
 
-        <div class="experience-container">
-            <div class="experience-box">
-                <h3>Talent Platform Developer — MIT (Emerging Talent)</h3>
-                <p>Led end-to-end design and development of a comprehensive talent platform connecting MIT Emerging Talent learners with potential employers.</p>
-                <p>Architected full-stack platform infrastructure from concept to deployment, enabling learners to showcase skills, projects, and professional data. Developed employer-facing features for talent discovery with intuitive user interfaces.</p>
-                <p>Integrated secure authentication, database management, and real-time data synchronisation using modern web technologies.</p>
-                <p class="experience-year">September 2025 – December 2025</p>
-            </div>
+    // Longitude lines
+    for (let j = 0; j < lonLines; j++) {
+      const theta = (j / lonLines) * Math.PI * 2;
+      const points = [];
+      for (let i = 0; i <= latLines; i++) {
+        const phi = (i / latLines) * Math.PI;
+        const r = R * Math.sin(phi);
+        const yOff = -R * Math.cos(phi);
+        const px3 = r * Math.cos(theta);
+        const pz3 = r * Math.sin(theta);
+        const [px, py, dist] = projectPoint(px3, yOff, pz3, rotY, cx, cy);
+        points.push([px, py, dist]);
+      }
+      ctx.beginPath();
+      points.forEach(([px, py], idx) => {
+        if (idx === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      });
+      ctx.strokeStyle = `rgba(0,255,81,0.2)`;
+      ctx.stroke();
+    }
 
-            <div class="experience-box">
-                <h3>WeThinkCode_ — Software Projects</h3>
-                <p>Built applications in Python, Java, and web technologies in a workplace-style simulation. Developed a Robot World simulation using algorithms, OOP, and database persistence.</p>
-                <p>Designed and integrated REST APIs (Flask/Node.js) with React front-ends. Applied Agile practices and used Docker and Git/GitLab for containerisation and version control.</p>
-                <p>Specialized in mobile development: Flutter/Dart apps using MVC/MVVM architecture and API integration.</p>
-                <p class="experience-year">2023 – December 2024</p>
-            </div>
+    // Eyes
+    const eyeL = projectPoint(-28, -15, 80, rotY, cx, cy);
+    const eyeR = projectPoint(28, -15, 80, rotY, cx, cy);
+    [eyeL, eyeR].forEach(([ex, ey, dist]) => {
+      if (dist > 4.5) {
+        ctx.beginPath();
+        ctx.arc(ex, ey, 6, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(0,255,81,0.9)';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(ex, ey, 10, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(0,255,81,0.4)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        // Eye glow
+        const eg = ctx.createRadialGradient(ex, ey, 0, ex, ey, 18);
+        eg.addColorStop(0, 'rgba(0,255,81,0.3)');
+        eg.addColorStop(1, 'transparent');
+        ctx.fillStyle = eg;
+        ctx.beginPath(); ctx.arc(ex, ey, 18, 0, Math.PI*2); ctx.fill();
+      }
+    });
 
-            <div class="experience-box">
-                <h3>Africa Focal Point Member</h3>
-                <p>United Nations Major Group for Children and Youth (UNMGCY)</p>
-                <p>Collaborated with global stakeholders on policy initiatives, enhancing problem-solving and teamwork skills. Led technology-driven policy initiatives to support migrant communities.</p>
-                <p class="experience-year">April 2021 – September 2022</p>
-            </div>
+    // Mouth — animates when speaking
+    const mouthW = isSpeaking ? 20 + Math.sin(Date.now()*0.015)*8 : 14;
+    const mouthH = isSpeaking ? 6 + Math.sin(Date.now()*0.02)*4 : 2;
+    const mouthC = projectPoint(0, 30, 85, rotY, cx, cy);
+    if (mouthC[2] > 4.5) {
+      ctx.beginPath();
+      ctx.ellipse(mouthC[0], mouthC[1], mouthW, mouthH, 0, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(0,255,81,0.7)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      if (isSpeaking) {
+        ctx.fillStyle = 'rgba(0,255,81,0.15)';
+        ctx.fill();
+      }
+    }
 
-            <div class="experience-box">
-                <h3>Independent Advocate for Refugee Education</h3>
-                <p>Self-led | South Africa</p>
-                <p>Designed community-focused solutions combining technical and advocacy skills to advance access to education for refugee communities.</p>
-                <p class="experience-year">2019 – 2022</p>
-            </div>
-        </div>
+    // Neck / collar
+    const neckTop = projectPoint(0, 110, 60, rotY, cx, cy);
+    const neckR1 = projectPoint(-20, 120, 55, rotY, cx, cy);
+    const neckR2 = projectPoint(20, 120, 55, rotY, cx, cy);
+    ctx.beginPath();
+    ctx.moveTo(neckR1[0], neckR1[1]);
+    ctx.lineTo(neckTop[0], neckTop[1]);
+    ctx.lineTo(neckR2[0], neckR2[1]);
+    ctx.strokeStyle = 'rgba(0,255,81,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
 
-        <div class="achievements">
-            <h2 class="section-title">Achievements & <span>Awards</span></h2>
+    // Data overlay — scan lines across face
+    const scanY = ((Date.now() % 3000) / 3000) * H;
+    ctx.beginPath();
+    ctx.moveTo(0, scanY); ctx.lineTo(W, scanY);
+    ctx.strokeStyle = 'rgba(0,255,81,0.08)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
 
-            <div class="achievement-box">
-                <h3>MITx 6.00.1x – Introduction to Computer Science and Programming Using Python</h3>
-                <p>Successfully completed MITx 6.00.1x, gaining foundational knowledge in computer science and programming using Python.</p>
-            </div>
+    // HUD bracket corners around face
+    const fx = cx - 120, fy = cy - 130, fw = 240, fh = 260;
+    const cs = 20;
+    ctx.strokeStyle = 'rgba(0,255,81,0.4)'; ctx.lineWidth = 2;
+    // TL
+    ctx.beginPath(); ctx.moveTo(fx, fy+cs); ctx.lineTo(fx, fy); ctx.lineTo(fx+cs, fy); ctx.stroke();
+    // TR
+    ctx.beginPath(); ctx.moveTo(fx+fw-cs, fy); ctx.lineTo(fx+fw, fy); ctx.lineTo(fx+fw, fy+cs); ctx.stroke();
+    // BL
+    ctx.beginPath(); ctx.moveTo(fx, fy+fh-cs); ctx.lineTo(fx, fy+fh); ctx.lineTo(fx+cs, fy+fh); ctx.stroke();
+    // BR
+    ctx.beginPath(); ctx.moveTo(fx+fw-cs, fy+fh); ctx.lineTo(fx+fw, fy+fh); ctx.lineTo(fx+fw, fy+fh-cs); ctx.stroke();
+  }
 
-            <div class="achievement-box">
-                <h3>MITx 6.00.2x – Introduction to Computational Thinking and Data Science</h3>
-                <p>Developed skills in computational thinking, data analysis, and algorithmic problem-solving using Python.</p>
-            </div>
+  function loop() {
+    angle += 0.005;
+    bobT += 0.02;
+    bobY = Math.sin(bobT) * 5;
+    drawHead(angle);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
 
-            <div class="achievement-box">
-                <h3>DataCamp: Introduction to Python</h3>
-                <p>Completed DataCamp's Introduction to Python course, learning core programming concepts through hands-on exercises.</p>
-            </div>
+// =============================================
+// CLOCK
+// =============================================
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('en-ZA', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-            <div class="achievement-box">
-                <h3>Aspire Leadership Program Graduate (2024)</h3>
-                <p>Completed leadership and personal development training through the Aspire Institute Leaders Program.</p>
-            </div>
+// =============================================
+// AI CHAT
+// =============================================
+const SYSTEM_PROMPT = `You are a virtual representation of Paul Mukuna Kabeya — a results-driven software engineer based in Johannesburg, South Africa. You ARE Paul speaking directly in first person. Speak naturally, confidently, and warmly as if you are Paul himself answering questions about your life, career, and skills. Never say "Paul" — always say "I". Be concise (2-4 sentences), human, and direct.
 
-            <div class="achievement-box">
-                <h3>Quakers United Nations Summer School, Geneva (Aug 2021)</h3>
-                <p>Engaged with UN representatives and mentors on global governance and diplomacy. Learned about leadership values in an international setting.</p>
-            </div>
+BACKGROUND:
+- Full-stack software engineer with experience in Java, Python, JavaScript, and Dart (Flutter).
+- Transitioned from the humanitarian sector into software engineering.
+- Fluent in English and IsiZulu, with moderate Swahili proficiency.
+- Based in Johannesburg, South Africa.
 
-            <div class="achievement-box">
-                <h3>Ubuntu United Nations Program (2021)</h3>
-                <p>Participated in cross-cultural youth dialogue and collaboration initiative.</p>
-            </div>
+EDUCATION (all dates and statuses are exact — do not improvise):
+- MIT Emerging Talent — Certificate in Computer and Data Science: COMPLETED December 2025. Covered ML, Python, advanced statistics.
+- University of the People — Associate Degree in Computer Science: COMPLETED January 2026 (GPA 3.4). Currently pursuing a Bachelor's Degree in Computer Science there.
+- WeThinkCode_ — Computer Systems Certificate: COMPLETED January 2025. Full-stack projects in Java, Python, JS, Dart.
+- Southern New Hampshire University — Associate Degree in Business Management: COMPLETED 2024.
 
-            <div class="achievement-box">
-                <h3>GFMD Participation (2021)</h3>
-                <p>Participated in the 2021 Global Forum on Migration and Development, engaging with numerous world leaders.</p>
-            </div>
-        </div>
-    </section>
+When asked about education, always complete your full answer without cutting off. Keep it to 3-4 sentences max.
 
-    <section class="services" id="services">
-        <h2 class="heading">Services</h2>
+EXPERIENCE:
+- Talent Platform Developer at MIT Emerging Talent (Sep–Dec 2025): led full-stack platform connecting learners with employers, built secure auth, DB, real-time data sync.
+- WeThinkCode_ Software Projects (2023–Dec 2024): built apps in Python, Java, web stack; REST APIs, Agile, Docker, Git.
+- Africa Focal Point Member at UN Major Group for Children and Youth (Apr 2021–Sep 2022).
+- Independent Advocate for Refugee Education in South Africa (2019–2022).
 
-        <div class="services-container">
-            <div class="service-box">
-                <div class="service-info">
-                    <i class="bx bxs-devices"></i>
-                    <h4>Mobile App Development</h4>
-                    <p>Expert in Flutter development with Firebase integration. Creating responsive, user-friendly mobile applications using MVC/MVVM architecture and seamless API integration.</p>
-                </div>
-            </div>
+PROJECTS:
+- Robot World Simulation (Java, OOP, Algorithms, DB persistence).
+- Fitness App (Flutter, Dart, Firebase, REST API, MVC/MVVM).
+- Full-Stack Web Applications (React, Flask, Node.js, REST API).
+- Banking System (Java, SQLite, user authentication).
+- Clock App (Java — alarm, stopwatch, timer).
 
-            <div class="service-box">
-                <div class="service-info">
-                    <i class="bx bx-code"></i>
-                    <h4>Backend Development</h4>
-                    <p>Proficient in Java, Python (Flask), and Node.js backend development. Building robust, secure, and scalable server-side applications with REST API design.</p>
-                </div>
-            </div>
+SKILLS:
+- Languages: Python, Java, JavaScript, Dart, SQL, HTML/CSS.
+- ML/DS: Machine Learning, NLP, Pandas, NumPy, Scikit-learn, Matplotlib.
+- Frameworks/DBs: Flask, Node.js, React, Flutter, MySQL, PostgreSQL, MongoDB, Firebase.
+- Tools: Git, GitHub, GitLab, Docker, VS Code, Android Studio, IntelliJ IDEA.
 
-            <div class="service-box">
-                <div class="service-info">
-                    <i class="bx bxs-data"></i>
-                    <h4>Database Design</h4>
-                    <p>Skilled in designing and optimising database structures using MySQL, PostgreSQL, MongoDB, SQLite, and Firebase Firestore for optimal performance.</p>
-                </div>
-            </div>
+CONTACT: GitHub: github.com/kerthnorth | LinkedIn: linkedin.com/in/paul-kabeya-9a53b12b8
 
-            <div class="service-box">
-                <div class="service-info">
-                    <i class="bx bx-code-alt"></i>
-                    <h4>Web Development</h4>
-                    <p>Experienced in building responsive websites and web applications. Proficient in HTML, CSS, JavaScript, and React to deliver fast, scalable digital solutions.</p>
-                </div>
-            </div>
+If asked how to hire you, direct them to scroll to the contact section of the portfolio or reach out via LinkedIn.`;
 
-            <div class="service-box">
-                <div class="service-info">
-                    <i class="bx bx-brain"></i>
-                    <h4>Data Science & ML</h4>
-                    <p>Applying machine learning, NLP, and data analysis using Python, Pandas, NumPy, Scikit-learn, and Matplotlib to extract insight and build intelligent solutions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+let history = [];
+let isLoading = false;
+let msgCount = 0;
 
-    <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me</span></h2>
+const messagesEl = document.getElementById('ai-messages');
+const inputEl = document.getElementById('ai-input');
+const sendBtn = document.getElementById('ai-send');
+const suggestionsEl = document.getElementById('ai-suggestions');
+const errorBanner = document.getElementById('ai-error-banner');
+const speakingIndicator = document.getElementById('speaking-indicator');
 
-        <form id="contactform">
-            <div class="input-group">
-                <div class="input-box">
-                    <input type="text" id="name" name="name" placeholder="Full Name" required>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                </div>
-                <textarea id="message" name="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
-                <input type="submit" value="Send Message" class="btn">
-            </div>
-        </form>
-    </section>
+// Initial greeting
+setTimeout(() => {
+  addMsg('bot', "Hey — I'm Mukuna. Ask me anything about my work, background, or what I can build for you.");
+}, 600);
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        (function() {
-            emailjs.init("h-h6q364s2GjtsQMa");
-        })();
-    </script>
-    <script>
-        document.getElementById('contactform').addEventListener('submit', function(event) {
-            event.preventDefault();
-            emailjs.sendForm('service_cy0wfsf', 'template_u8wa0t4', this)
-                .then(function(response) {
-                    console.log('Email sent!', response.status, response.text);
-                    alert('Email sent successfully!');
-                }, function(error) {
-                    console.error('Error sending email:', error);
-                    alert('Oops! Something went wrong.');
-                });
-        });
-    </script>
+document.querySelectorAll('.ai-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    sendMessage(chip.dataset.q);
+    suggestionsEl.style.display = 'none';
+  });
+});
 
-    <footer class="footer">
-        <div class="social-icons">
-            <a href="https://github.com/kerthnorth" target="_blank"><i class="bx bxl-github"></i></a>
-            <a href="https://www.linkedin.com/in/paul-kabeya-9a53b12b8" target="_blank"><i class="bx bxl-linkedin-square"></i></a>
-            <a href="#"><i class="bx bxl-instagram-alt"></i></a>
-            <a href="#"><i class="bx bxl-twitter"></i></a>
-        </div>
+sendBtn.addEventListener('click', () => sendMessage());
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+inputEl.addEventListener('input', () => {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+});
 
-        <ul class="list">
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+function addMsg(role, text) {
+  const wrap = document.createElement('div');
+  wrap.className = `ai-msg ${role}`;
 
-        <p class="copyright">
-            Paul Mukuna Kabeya &copy; 2025 All Rights Reserved
-        </p>
-    </footer>
+  const av = document.createElement('div');
+  av.className = 'ai-msg-avatar';
+  av.textContent = role === 'bot' ? 'MK' : 'YOU';
 
-    <script src="script.js"></script>
-    <script src="socialLinks.js"></script>
-    <script src="ProjectLinks.js"></script>
-    <script src="server.js"></script>
+  const bubble = document.createElement('div');
+  bubble.className = 'ai-msg-bubble';
+  bubble.textContent = text;
+
+  wrap.appendChild(av);
+  wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  if (role === 'bot') {
+    msgCount++;
+    document.getElementById('msg-count').textContent =
+      msgCount + (msgCount === 1 ? ' exchange' : ' exchanges');
+  }
+  return wrap;
+}
+
+function addTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'ai-msg bot'; wrap.id = 'typing-el';
+  const av = document.createElement('div');
+  av.className = 'ai-msg-avatar'; av.textContent = 'MK';
+  const bubble = document.createElement('div');
+  bubble.className = 'ai-msg-bubble';
+  bubble.innerHTML = '<div class="ai-typing"><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div></div>';
+  wrap.appendChild(av); wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function removeTyping() {
+  const el = document.getElementById('typing-el');
+  if (el) el.remove();
+}
+
+async function sendMessage(text) {
+  const msg = text || inputEl.value.trim();
+  if (!msg || isLoading) return;
+  inputEl.value = ''; inputEl.style.height = 'auto';
+  isLoading = true; sendBtn.disabled = true;
+  suggestionsEl.style.display = 'none';
+
+  addMsg('user', msg);
+  history.push({ role: 'user', content: msg });
+  addTyping();
+
+  // Animate avatar
+  speakingIndicator.classList.remove('active');
+  window.setAvatarSpeaking && window.setAvatarSpeaking(false);
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'gemini-flash-latest',
+        max_tokens: 800,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+
+    const data = await res.json();
+    removeTyping();
+
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      history.push({ role: 'assistant', content: reply });
+      addMsg('bot', reply);
+      // Animate avatar speaking
+      speakingIndicator.classList.add('active');
+      window.setAvatarSpeaking && window.setAvatarSpeaking(true);
+      setTimeout(() => {
+        speakingIndicator.classList.remove('active');
+        window.setAvatarSpeaking && window.setAvatarSpeaking(false);
+      }, Math.min(reply.length * 50, 5000));
+      errorBanner.classList.remove('visible');
+    } else {
+      addMsg('bot', "Something went wrong — try again.");
+      errorBanner.classList.add('visible');
+    }
+  } catch(e) {
+    removeTyping();
+    addMsg('bot', "I can't reach the AI service right now. You can view my full portfolio instead.");
+    errorBanner.classList.add('visible');
+    console.error(e);
+  }
+
+  isLoading = false; sendBtn.disabled = false;
+  inputEl.focus();
+}
+</script>
 </body>
-
 </html>
