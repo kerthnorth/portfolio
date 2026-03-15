@@ -1,8 +1,7 @@
-// api/chat.js — Vercel serverless function (replaces proxy-server.js)
+// api/chat.js — Vercel serverless function
 // Set GEMINI_API_KEY in Vercel Dashboard → Settings → Environment Variables
 
-export default async function handler(req, res) {
-  // Only allow POST
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -46,10 +45,10 @@ export default async function handler(req, res) {
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text
       || "Sorry, I couldn't generate a response.";
 
-    res.status(200).json({ content: [{ type: 'text', text }] });
+    return res.status(200).json({ content: [{ type: 'text', text }] });
 
   } catch (err) {
     console.error('Handler error:', err.message);
-    res.status(500).json({ error: 'Request failed', detail: err.message });
+    return res.status(500).json({ error: 'Request failed', detail: err.message });
   }
-}
+};
